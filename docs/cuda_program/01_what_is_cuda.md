@@ -1,20 +1,21 @@
-# CUDA是什么
+# CUDA 是什么
 
 
 
 
 :earth_asia: **Bilibili视频传送门：**[CUDA编程01：GPU发家史-从游戏到CUDA](https://www.bilibili.com/video/BV1Mb4y1p7BG?share_source=copy_web) :earth_asia:
 
-新手入门CUDA必备知识：
+新手入门 CUDA 必备知识：
 
-- GPU并行编程的过去和现在
+- GPU 并行编程的过去和现在
 
-- 编写第一个CUDA程序
+- 编写第一个 CUDA 程序
 
-这期帮大家梳理GPU并行编程的过去和现在，以及CUDA在其中的作用。
+这期帮大家梳理 GPU 并行编程的过去和现在，以及 CUDA 在其中的作用。
 
-## 1. 早期GPU的应用
-显卡最初的目的是让图像能更好的处理和生成、最后输出到显示器上，主要应用于游戏和CG领域。GPU是显卡中最重要的组成部分，常作为显卡的代称。GPU和CPU的差异如下：
+## 1. 早期 GPU 的应用
+
+显卡最初的目的是让图像能更好的处理和生成、最后输出到显示器上，主要应用于游戏和 CG 领域。GPU 是显卡中最重要的组成部分，常作为显卡的代称。GPU 和 CPU 的差异如下：
 
 
 | **NO.特性** | **CPU**     | **GPU**     |
@@ -27,40 +28,56 @@
 | **重点**    | 关注低延迟       | 强调高吞吐量      |
 
 
-
-<center>
-    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="01_what_is_cuda_files/gpu_cell.png">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
-    display: inline-block;
-    color: #999;
-    padding: 2px;">早期GPU</div>
-</center>
+早期的 GPU 结构：
 
 
-为了将GPU应用于图像处理之外的工作，早期的方法是将任务转换成图像处理的形式，再使用原本用于图像渲染、坐标换算的API完成通用计算。这种方法的学习成本是非常高的，CUDA因此应运而生。
+![gpu_cell](01_what_is_cuda_files/gpu_cell.png)
 
-## 2. CUDA的诞生
-CUDA：英伟达提出的通用并行计算架构
 
-CUDA和DirectGraphic类似，都是通过调用驱动操纵显卡，不同的是DirectGraphic提供的API主要是和图形有关，而CUDA主要用于支持通用计算。
+为了将 GPU 应用于图像处理之外的工作，早期的方法是将任务转换成图像处理的形式，再使用原本用于图像渲染、坐标换算的 API 完成通用计算。这种方法的学习成本是非常高的，CUDA 因此应运而生。
 
-<center>
-    <img style="border-radius: 0.3125em;
-    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="01_what_is_cuda_files/cuda_directgraphic.png" width="40%">
-    <br>
-</center>
+## 2. CUDA 的诞生
 
-CUDA编程的特点：
+CUDA ：英伟达提出的通用并行计算架构
+
+CUDA 和 DirectGraphic 类似，都是通过调用驱动操纵显卡，不同的是 DirectGraphic 提供的 API 主要是和图形有关，而 CUDA 主要用于支持通用计算。
+
+![CUDA_DirectGraphic](01_what_is_cuda_files/cuda_directgraphic.png)
+
+CUDA 编程的特点：
 
 - 并行编程
 
-例如两个长度为N的向量相加，对于串行编程，需要循环N次，将这两个向量的元素逐一加和；而CUDA会去开N个线程，同时处理N个元素，也就是并行编程。
+例如两个长度为 N 的向量相加：
+
+```C++
+void VectorAdd(int n,float *x,float *y)
+{
+    for(int i=0;i<n;i++){
+        y[i] = x[i] +y[i];
+    }
+}
+
+int main(int argc, char* argv[])
+{
+    int N = 1<<24; //16,777,216
+    float *x = nullptr;
+    float *y = nullptr;
+    
+    //Allocate Unified Memory - accessible from CPU or GPU
+    x = (float*)malloc(N*sizeof(float));
+    y = (float*)malloc(N*sizeof(float));
+    
+    VectorAdd(N,x,y);
+    return 0;
+}
+```
+
+对于串行编程，需要循环 N 次，将这两个向量的元素逐一加和；而 CUDA 会去开 N 个线程，同时处理 N 个元素，也就是并行编程。
 
 - 异构编程
 
-平常的代码都是运行在CPU上的，当我们想要使用GPU的资源时，需要通过特定的语法或函数让GPU分配资源、进行计算，以及将结果拷贝回CPU，这个过程就是异构编程。
+平常的代码都是运行在 CPU 上的，当我们想要使用 GPU 的资源时，需要通过特定的语法或函数让 GPU 分配资源、进行计算，以及将结果拷贝回 CPU ，这个过程就是异构编程。
+
+![CUDA_DirectGraphic](01_what_is_cuda_files/cuda_parallel.jpeg)
 
