@@ -28,7 +28,7 @@
 | **重点**    | 关注低延迟       | 强调高吞吐量      |
 
 
-早期的 GPU ，只有和图像处理有关的 API：
+早期的 GPU，只有和图像处理有关的 API：
 
 
 ![gpu_cell](01_what_is_cuda_files/gpu_cell.png)
