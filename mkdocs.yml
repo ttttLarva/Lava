@@ -138,3 +138,6 @@ nav:
     - 学习 CUDA 编程:
       - CUDA 是什么: cuda_program/01_what_is_cuda.md
 
+    - CPython 源码解读:
+      - 认识 CPython 源码结构并且编程: cpython/cpython1.md
+
