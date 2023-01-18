@@ -139,5 +139,5 @@ nav:
       - CUDA 是什么: cuda_program/01_what_is_cuda.md
 
     - CPython 源码解读:
-      - 认识 CPython 源码结构并编程: cpython/CPython1.md
+      - 认识 CPython 源码结构并且编程: cpython/CPython1.md
       
