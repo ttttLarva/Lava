@@ -113,6 +113,7 @@ git clone https://github.com/python/cpython.git
 ```
 ./configure CFLAGS="-g -O0"
 ```
+
 这里的两个编译参数表示编译时带符号以及不做优化，这是为了我们后续调试方便。
 
 如上，我们就配置完成了。接着我们继续敲 `make` 命令进行编译
