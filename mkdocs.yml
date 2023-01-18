@@ -72,7 +72,7 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
-  - pymdownx.emoji:
+    - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   # - pymdownx.highlight:
@@ -138,3 +138,6 @@ nav:
     - 学习 CUDA 编程:
       - CUDA 是什么: cuda_program/01_what_is_cuda.md
 
+    - CPython 源码解读:
+      - 认识 CPython 源码结构并编程: cpython/CPython1.md
+      
