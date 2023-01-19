@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -605,20 +621,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    模板显式实例化
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#static_assert" class="md-nav__link">
-    static_assert 类型检查
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -813,6 +815,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -845,20 +889,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    模板显式实例化
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#static_assert" class="md-nav__link">
-    static_assert 类型检查
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -877,7 +907,7 @@
                 
                 
                 <h1 id="template">模板 template<a class="headerlink" href="#template" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1U44y1T7vf?spm_id_from=333.999.0.0">C++新标准008_模板实例化</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1U44y1T7vf?spm_id_from=333.999.0.0">C++新标准008_模板实例化</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p><a href="07_complie_link_macro.html">上一篇文章</a>我们了解了宏，在此基础上，我们这期谈谈模板，包括三个主要内容：</p>
 <ul>
 <li>模板实例化原理</li>
@@ -888,144 +918,128 @@
 <p>接下来就从模板的实例化原理谈起，让我们看看模板和宏的相似之处，为什么要把模板称作更高级的宏？</p>
 <h2 id="_1">模板的实例化原理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>大部分朋友都是通过泛型编程了解到模板的，我们也先从这个角度回顾一下模板。如下面的 <code>MYMAX</code> 例子：</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">MYMAX</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">double</span><span class="w"> </span><span class="nf">MYMAX</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mf">2.73</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include">include <stdio.h><a class="headerlink" href="#include" title="Permanent link">&para;</a></h1>
+<h1 id="include_1">include <type_traits><a class="headerlink" href="#include_1" title="Permanent link">&para;</a></h1>
+<h1 id="include_2">include <string.h><a class="headerlink" href="#include_2" title="Permanent link">&para;</a></h1>
+<p>int MYMAX(int x, int y){
+    return x&lt;y ? y : x;
+}</p>
+<p>double MYMAX(double x, double y){
+    return x&lt;y ? y : x;
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    printf("%d\n", MYMAX(10, 5));
+    printf("%1f\n", MYMAX(3.14, 2.73));
+    return 0;
+}
+```</p>
 <p>如果不使用模板，要想实现既支持 <code>int</code> 类型又支持 <code>double</code> 类型的 <code>MYMAX</code> 函数，就要实现两个版本的 <code>MYMAX</code> 函数。但是这两个函数的实现除了类型不一样，几乎是一样的，显得很冗余。这时候我们使用模板改造 <code>MYMAX</code> ，代码就十分简洁。如下所示，在模板部分只写了一套实现，就可以对 <code>int</code> 进行数据调用，也可以对 <code>double</code> 进行数据调用。</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mf">2.73</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include_3">include <stdio.h><a class="headerlink" href="#include_3" title="Permanent link">&para;</a></h1>
+<h1 id="include_4">include <string.h><a class="headerlink" href="#include_4" title="Permanent link">&para;</a></h1>
+<p>template <typename T>
+T MYMAX(T x , T y){
+    return x&lt;y ? y : x;
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    printf("%d\n", MYMAX<int>(10, 5));
+    printf("%1f\n", MYMAX<double>(3.14, 2.73));
+    return 0;
+}
+```</p>
 <p>然而，这里定义的模板 <code>MYMAX</code>，并不是真正的函数，而是一个 <strong>函数生成器</strong> 。一个模板并不会被自发地编译成 object 文件中的机器码，而只有当模板被调用时，编译器才会对它进行展开、实例化，被编译成机器码。</p>
 <p>接下来从代码一步步看实例化是怎么具体实现的。</p>
 <p>当编译器进入主函数扫描到 <code>printf("%d\n", MYMAX&lt;int&gt;(10, 5));</code> 中的 <code>MYMAX&lt;int&gt;</code> 时，就知道需要对模板进行展开了，于是会复制一份 <code>MYMAX</code> 的模板代码到下面，再把模板参数中的 <code>T</code> 替换成 <code>int</code> 。</p>
 <p>对于 <code>MYMAX</code> 的 <code>double</code> 实现同理。最后利用模板创建的 <code>MYMAX</code> 和开始分别创建的 <code>int</code> 和 <code>double</code> 类型的 <code>MYMAX</code> 是一样的效果。</p>
 <p>如下，就是手工模拟编译器进行模板实例化的结果。顺便一提，<code>MYMAX&lt;int&gt;</code> 和 <code>MYMAX&lt;double&gt;</code> 中的 <code>int</code> 和 <code>double</code> 可以省略，C++ 编译器会根据传参的类型自动推导出模板参数应该是什么。</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">double</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mf">2.73</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include_5">include <stdio.h><a class="headerlink" href="#include_5" title="Permanent link">&para;</a></h1>
+<h1 id="include_6">include <string.h><a class="headerlink" href="#include_6" title="Permanent link">&para;</a></h1>
+<p>template <typename T>
+T MYMAX(T x , T y){
+    return x&lt;y ? y : x;
+}</p>
+<p>int MYMAX(int x , int y){
+    return x&lt;y ? y : x;
+}</p>
+<p>double MYMAX(double x, double y){
+    return x&lt;y ? y : x;
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    printf("%d\n", MYMAX<int>(10, 5));
+    printf("%1f\n", MYMAX<double>(3.14, 2.73));
+    return 0;
+}
+```</p>
 <p>这个复制、展开、替换的过程就是模板的实例化过程，大家可以想一想，是不是和宏的行为有些许的类似呢？我们来找一些证据证明这个想法。</p>
 <p>看看下面这个例子，我们在模板中调用了一个只有声明没有实现的函数。按道理来说程序生成时应该会遇到一个链接错误，然而生成后发现并没有错误。这就是因为我们没有调用模板函数，因此就没有实例化，也不会出现链接错误了。</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">veryverystrangefun</span><span class="p">();</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="n">veryverystrangefun</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include_7">include <stdio.h><a class="headerlink" href="#include_7" title="Permanent link">&para;</a></h1>
+<h1 id="include_8">include <string.h><a class="headerlink" href="#include_8" title="Permanent link">&para;</a></h1>
+<p>void veryverystrangefun();</p>
+<p>template <typename T>
+T MYMAX(T x , T y){
+    veryverystrangefun();
+    return x&lt;y ? y : x;
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    return 0;
+}
+```</p>
 <p>如下，这时候如果我们在主函数中调用模板，再生成就会报链接错误了。</p>
-<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p><code>c++
+int main(int argc, char* argv[])
+{
+    printf("%d\n", MYMAX(10, 5));
+    return 0;
+}</code></p>
 <p>再比如，大家之前会不会好奇，为什么 STL 中的模板实现，几乎都是写在头文件中的呢？现在应该很容易理解了，就是因为在编译过程中需要拿到模板的实现，这样子才能把模板当作代码生成器去展开。如果头文件中只有模板的声明没有实现的话，就没办法进行模板实例化了。</p>
 <h2 id="_2">模板显式实例化<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>是不是不调用模板就一定不能实例化呢？其实倒也未必，C++ 中提供了模板的显式实例化语法。所谓显式实例化，就是即使不去调用模板，也能生成实例化的函数或类。</p>
 <p>具体的语法也很简单，就是 <strong>template关键字 + 实例化声明</strong> 。下面还是以 <code>MYMAX</code> 为例子，来看显式实例化的具体实现。</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span><span class="w"></span>
-<span class="k">template</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">MYMAX</span><span class="p">(</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">);</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include_9">include <stdio.h><a class="headerlink" href="#include_9" title="Permanent link">&para;</a></h1>
+<h1 id="include_10">include <string.h><a class="headerlink" href="#include_10" title="Permanent link">&para;</a></h1>
+<p>template <typename T>
+T MYMAX(T x , T y){
+    return x&lt;y ? y : x;
+}</p>
+<p>template int MYMAX(int, int);
+template double MYMAX(double, double);</p>
+<p>int main(int argc, char* argv[])
+{
+    return 0;
+}
+```</p>
 <p>到底什么情况下，才需要用到显式实例化，这个就需要结合应用场景才能明白了。在 OneFlow 中就用到了很多显式实例化的语法，这是为了配合某些设计需求，在后续也会给大家专门进行介绍。</p>
 <h2 id="static_assert"><code>static_assert</code> 类型检查<a class="headerlink" href="#static_assert" title="Permanent link">&para;</a></h2>
 <p>现在，我们有了模板版本的 <code>MYMAX</code> ，但上一期介绍的类型检查问题仍然存在。如果我们传递了字符串类型的参数，这时候依然会对字符串进行没有意义的大小比较，依然在编译时不报警告，不报错。</p>
 <p><code>MYMAX("short string","very very long string")</code></p>
 <p>为了解决这个问题，我们使用 <code>static_assert</code> 。<code>static_assert</code> 是在 C++11 中引入的新语法，它的作用就是让我们在编译时，就可以去做必要的检查。如果检查不通过，就会中断编译，并给出报错信息。接下来我们看看它的具体语法。</p>
 <p>我们在 <code>MYMAX</code> 模板中加入了 <code>static_assert</code> ，它的意思是在编译时要去检查 <code>T</code> 的类型，只有 <code>T</code> 是整数或者浮点型才合法，然后在主函数中实现整形，浮点型，字符串的实例化。进行编译就会报错，然后定位到字符串实例化所在行，并且给出报错信息 <code>T must be  integral or floating point</code> 。</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;T must be  integral or floating point&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mf">2.73</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="s">&quot;short string&quot;</span><span class="p">,</span><span class="s">&quot;very very long string&quot;</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include_11">include <stdio.h><a class="headerlink" href="#include_11" title="Permanent link">&para;</a></h1>
+<h1 id="include_12">include <type_traits><a class="headerlink" href="#include_12" title="Permanent link">&para;</a></h1>
+<h1 id="include_13">include <string.h><a class="headerlink" href="#include_13" title="Permanent link">&para;</a></h1>
+<p>template <typename T>
+T MYMAX(T x , T y){
+    static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value,
+    "T must be  integral or floating point");
+    return x&lt;y ? y : x;
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    printf("%d\n", MYMAX<int>(10, 5));
+    printf("%1f\n", MYMAX<double>(3.14, 2.73));
+    printf("%s\n", MYMAX("short string","very very long string"));
+    return 0;
+}
+```</p>
 <p>最后注意，<code>static_assert</code> 是在编译时的检查，并不会影响运行的性能。</p>
 <p>大家可能会有疑问，代码中用到的 <code>type_traits</code> 和 <code>std::is_integral</code> 以及 <code>std::is_floating_point</code> 是什么东西。还有就是刚刚 <code>static_assert</code> 的操作只是逃避了字符串的比较，而没有解决字符串的比较。不过没关系！这些都是小糖在后续都会讲到的。</p>
                 

@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -617,40 +633,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    偏特化
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    特化的应用
-  </a>
-  
-    <nav class="md-nav" aria-label="特化的应用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pytorch" class="md-nav__link">
-    PyTorch 的适配风格
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oneflow" class="md-nav__link">
-    OneFlow 的适配风格
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -833,6 +815,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -865,40 +889,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    偏特化
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    特化的应用
-  </a>
-  
-    <nav class="md-nav" aria-label="特化的应用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pytorch" class="md-nav__link">
-    PyTorch 的适配风格
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oneflow" class="md-nav__link">
-    OneFlow 的适配风格
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -917,7 +907,7 @@
                 
                 
                 <h1 id="_1">模板特例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1ea411v7Xa?spm_id_from=333.999.0.0">C++新标准009_模板特例</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1ea411v7Xa?spm_id_from=333.999.0.0">C++新标准009_模板特例</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p><a href="08_template.html">上一篇文章</a>我们了解了模版，在此基础上，我们这期谈谈模板特例，包括三个主要内容：</p>
 <ul>
 <li>泛型编程的特殊情况</li>
@@ -926,156 +916,148 @@
 </ul>
 <h2 id="_2">泛型编程的特殊情况<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>我们还是使用原来写过的 MYMAX 代码来作为例子：</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;type_traits&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
-
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;T must be  integral or floating point&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%1f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mf">3.14</span><span class="p">,</span><span class="w"> </span><span class="mf">2.73</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="s">&quot;short string&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;very very long string&quot;</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```C++</p>
+<h1 id="include">include <stdio.h><a class="headerlink" href="#include" title="Permanent link">&para;</a></h1>
+<h1 id="include_1">include <type_traits><a class="headerlink" href="#include_1" title="Permanent link">&para;</a></h1>
+<h1 id="include_2">include <string.h><a class="headerlink" href="#include_2" title="Permanent link">&para;</a></h1>
+<p>template <typename T>
+T MYMAX(T x , T y){
+    static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value,
+    "T must be  integral or floating point");
+    return x&lt;y ? y : x;
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    printf("%d\n", MYMAX<int>(10, 5));
+    printf("%1f\n", MYMAX<double>(3.14, 2.73));
+    printf("%s\n", MYMAX("short string", "very very long string"));
+    return 0;
+}
+```</p>
 <p>原来的代码做了静态检查，遇到输入是字符串时可以达到编译时就报错。这种做法其实是回避问题而不是解决问题，因此我们可以使用模版特例来解决：</p>
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">T</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_floating_point</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;T must be  integral or floating point&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="o">&lt;</span><span class="n">y</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"></span>
-<span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">MYMAX</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++
+template <typename T>
+T MYMAX(T x , T y){
+    static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value,
+    "T must be  integral or floating point");
+    return x&lt;y ? y : x;
+}</p>
+<p>template &lt;&gt;
+const char* MYMAX(const char* x , const char* y){
+    if (strlen(x) &lt; strlen(y)) {
+      return y;
+    }
+    else {
+      return x;
+    }
+}
+```</p>
 <p>这里我们增加了一个模版特化的 <code>MYMAX</code>，有 <code>template</code> 关键字，但是没有参数。这个函数仅仅只针对 <code>const char*</code> 类型生效，函数内部的实现也是专门针对字符串的。其实就是针对某些模版参数进行了特化，编译器在实例化模版的过程中，会优先选择特化的模版，那模版特化的优点也是很明显的了。首先，从功能上来说，有类似虚函数那样“多态”的效果，我们对不同的数据调用的都是 <code>MYMAX</code>，但是会自动选择不同的处理逻辑。其次，模版特化的性能更优，虚函数依赖的是运行时刷新虚表、查询虚表，而模板特化在编译时就完成了“分支的选择”，不占用运行时的资源，因此一般来说它的性能更优。 </p>
 <h2 id="_3">偏特化<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>刚刚写的模版特化，<code>template</code> 括号中是没有任何模版参数的，这种情况被称为“全特化”，其表示所有的模版参数都被特别指定了。与之对应的，对于类模版而言还有“偏特化”，表示只用特化部分模版参数。</p>
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-
-<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span><span class="w"></span>
-
-<span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DEVICE</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">CPU</span><span class="p">,</span><span class="w"></span>
-<span class="w">  </span><span class="n">GPU</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">DEVICE</span><span class="w"> </span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">IN_T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">IN_T2</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">CExample</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="n">IN_T1</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T2</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">IN_T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">IN_T2</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">CExample</span><span class="o">&lt;</span><span class="n">DEVICE</span><span class="o">::</span><span class="n">CPU</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T1</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T2</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="n">IN_T1</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T2</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;CPU template for: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">IN_T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">IN_T2</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">CExample</span><span class="o">&lt;</span><span class="n">DEVICE</span><span class="o">::</span><span class="n">GPU</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T1</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T2</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="n">IN_T1</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">IN_T2</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;GPU template for: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">CExample</span><span class="o">&lt;</span><span class="n">DEVICE</span><span class="o">::</span><span class="n">CPU</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="o">&gt;</span><span class="p">()(</span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="mf">2.4</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">CExample</span><span class="o">&lt;</span><span class="n">DEVICE</span><span class="o">::</span><span class="n">GPU</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p>```c++</p>
+<h1 id="include_3">include <iostream><a class="headerlink" href="#include_3" title="Permanent link">&para;</a></h1>
+<p>using namespace std;</p>
+<p>enum class DEVICE {
+  CPU,
+  GPU
+};</p>
+<p>template <DEVICE dev, typename IN_T1, typename IN_T2>
+struct CExample {
+  void operator()(IN_T1 a, IN_T2 b);
+};</p>
+<p>template <typename IN_T1, typename IN_T2>
+struct CExample<DEVICE::CPU, IN_T1, IN_T2> {
+  void operator()(IN_T1 a, IN_T2 b) {
+    cout &lt;&lt; "CPU template for: " &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; endl;
+  }
+};</p>
+<p>template <typename IN_T1, typename IN_T2>
+struct CExample<DEVICE::GPU, IN_T1, IN_T2> {
+  void operator()(IN_T1 a, IN_T2 b) {
+    cout &lt;&lt; "GPU template for: " &lt;&lt; a &lt;&lt; " " &lt;&lt; b &lt;&lt; endl;
+  }
+};</p>
+<p>int main() {
+  CExample<DEVICE::CPU, double, double>()(1.5, 2.4);
+  CExample<DEVICE::GPU, int, int>()(4, 2);
+  return 0;
+}
+```</p>
 <p>这里实现了一个 <code>CExample</code> 的模版类，其有三个模版参数。然后我们实现两个模版类，分别对 <code>CPU</code> 和 <code>GPU</code> 的 <code>DEVICE</code> 进行偏特化。可以看到针对给定的不同“设备类型”，我们调用时使用的都是统一的接口，但是却触发了完全不同的运行流程。</p>
 <h2 id="_4">特化的应用<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>通过上面的介绍，我们了解了模版的全特化和偏特化，接下来我们就从知名开源软件 PyTorch 和 OneFlow 来体会模版特化的用处。我们知道，工业级别的深度学习框架，无论是 PyTorch 还是 OneFlow，都要去适配多种硬件，最常见的就是适配 GPU 和 CPU。</p>
 <h3 id="pytorch">PyTorch 的适配风格<a class="headerlink" href="#pytorch" title="Permanent link">&para;</a></h3>
 <p>PyTorch 一般会针对 CPU 和 GPU 分别写一套独立的代码，接下来我们就以 PyTorch 的<code>eye</code>算子为例看看。它的 CPU 版本的实现放在 <a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorFactories.cpp#L434">eye_out_cpu</a> 中。</p>
-<div class="highlight"><pre><span></span><code><span class="n">result</span><span class="p">.</span><span class="n">resize_</span><span class="p">({</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">});</span><span class="w"></span>
-<span class="n">result</span><span class="p">.</span><span class="n">zero_</span><span class="p">();</span><span class="w"></span>
-
-<span class="kt">int64_t</span><span class="w"> </span><span class="n">sz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">);</span><span class="w"></span>
-<span class="n">AT_DISPATCH_ALL_TYPES_AND_COMPLEX_AND2</span><span class="p">(</span><span class="n">at</span><span class="o">::</span><span class="n">ScalarType</span><span class="o">::</span><span class="n">Half</span><span class="p">,</span><span class="w"> </span><span class="n">at</span><span class="o">::</span><span class="n">ScalarType</span><span class="o">::</span><span class="n">Bool</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">scalar_type</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;eye&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">scalar_t</span><span class="o">*</span><span class="w"> </span><span class="n">result_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">data_ptr</span><span class="o">&lt;</span><span class="n">scalar_t</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
-<span class="w">  </span><span class="n">at</span><span class="o">::</span><span class="n">parallel_for</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">,</span><span class="w"> </span><span class="n">internal</span><span class="o">::</span><span class="n">GRAIN_SIZE</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">p_begin</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">p_end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">c10</span><span class="o">::</span><span class="n">irange</span><span class="p">(</span><span class="n">p_begin</span><span class="p">,</span><span class="w"> </span><span class="n">p_end</span><span class="p">))</span><span class="w"></span>
-<span class="w">      </span><span class="n">result_data</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">strides</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">stride</span><span class="p">()[</span><span class="mi">1</span><span class="p">])]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
-</code></pre></div>
+<p>```c++
+result.resize_({n, m});
+result.zero_();</p>
+<p>int64_t sz = std::min<int64_t>(n, m);
+AT_DISPATCH_ALL_TYPES_AND_COMPLEX_AND2(at::ScalarType::Half, at::ScalarType::Bool, result.scalar_type(), "eye", <a href="">&amp;</a> -&gt; void {
+  scalar_t* result_data = result.data_ptr<scalar_t>();
+  at::parallel_for(0, sz, internal::GRAIN_SIZE, <a href="int64_t p_begin, int64_t p_end">&amp;</a> {
+    for (const auto i : c10::irange(p_begin, p_end))
+      result_data[i*(result.strides()[0] + result.stride()[1])] = 1;
+  });
+});
+```</p>
 <p>上面是 CPU 版本的 <code>eye</code> 算子实现，而在 GPU 版本中，其实现在<a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/cuda/TensorFactories.cu#L39">eye_out_gpu</a>中。</p>
-<div class="highlight"><pre><span></span><code><span class="n">result</span><span class="p">.</span><span class="n">resize_</span><span class="p">({</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">});</span><span class="w"></span>
-<span class="n">result</span><span class="p">.</span><span class="n">zero_</span><span class="p">();</span><span class="w"></span>
-
-<span class="kt">int64_t</span><span class="w"> </span><span class="n">sz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">);</span><span class="w"></span>
-<span class="kt">int64_t</span><span class="w"> </span><span class="n">stride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">stride</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">stride</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-
-<span class="n">Tensor</span><span class="w"> </span><span class="n">diag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">as_strided</span><span class="p">({</span><span class="n">sz</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="n">stride</span><span class="p">});</span><span class="w"></span>
-<span class="n">diag</span><span class="p">.</span><span class="n">fill_</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-</code></pre></div>
+<p>```c++
+result.resize_({n, m});
+result.zero_();</p>
+<p>int64_t sz = std::min<int64_t>(n, m);
+int64_t stride = result.stride(0) + result.stride(1);</p>
+<p>Tensor diag = result.as_strided({sz}, {stride});
+diag.fill_(1);
+```</p>
 <p>PyTorch 这种风格为每一种硬件都写一套 <code>kernel</code>，这样代码清爽简洁，更容易让人看懂，但是可能会产生比较多的重复代码。</p>
 <h3 id="oneflow">OneFlow 的适配风格<a class="headerlink" href="#oneflow" title="Permanent link">&para;</a></h3>
 <p>OneFlow 中就运用了模版特例等技巧，把在适配硬件过程中可能会重复的代码降低到最少。</p>
 <p>不管是 CPU 还是 GPU，用的都是下面同一份代码，即 <code>SetOneInDiag</code> 函数，其声明在 <a href="https://github.com/Oneflow-Inc/oneflow/blob/master/oneflow/user/kernels/eye_kernel_util.h">eye_kernel_util.h</a>。</p>
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">OF_DEVICE_FUNC</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">SetOneInDiag</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="n">XPU_1D_KERNEL_LOOP</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">out</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p><code>c++
+template&lt;typename T&gt;
+OF_DEVICE_FUNC void SetOneInDiag(const int64_t cols, const int64_t rows, T* out) {
+  const T one = static_cast&lt;T&gt;(1);
+  XPU_1D_KERNEL_LOOP(i, rows) {
+    const int64_t index = i * cols + i;
+    out[index] = one;
+  }
+}</code></p>
 <p>而不同设备的入口也是统一的，就是下面的 <code>EyeFunctor</code> 括号运算符重载函数，实现在 <a href="https://github.com/Oneflow-Inc/oneflow/blob/master/oneflow/user/kernels/eye_kernel.cpp">eye_kernel.cpp</a>。</p>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Compute</span><span class="p">(</span><span class="n">user_op</span><span class="o">::</span><span class="n">KernelComputeContext</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;rows&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">Attr</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;cols&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="n">Tensor</span><span class="o">*</span><span class="w"> </span><span class="n">out_tensor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">Tensor4ArgNameAndIndex</span><span class="p">(</span><span class="s">&quot;out&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out_tensor</span><span class="o">-&gt;</span><span class="n">mut_dptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">Memset</span><span class="o">&lt;</span><span class="n">device_type</span><span class="o">&gt;</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">stream</span><span class="p">(),</span><span class="w"> </span><span class="n">out_tensor</span><span class="o">-&gt;</span><span class="n">mut_dptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">out_tensor</span><span class="o">-&gt;</span><span class="n">shape</span><span class="p">().</span><span class="n">elem_cnt</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">GetSizeOfDataType</span><span class="p">(</span><span class="n">out_tensor</span><span class="o">-&gt;</span><span class="n">data_type</span><span class="p">()));</span><span class="w"></span>
-<span class="w">    </span><span class="n">EyeFunctor</span><span class="o">&lt;</span><span class="n">device_type</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">stream</span><span class="p">(),</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">),</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<p><code>c++
+void Compute(user_op::KernelComputeContext* ctx) const override {
+    int64_t rows = ctx-&gt;Attr&lt;int64_t&gt;("rows");
+    int64_t cols = ctx-&gt;Attr&lt;int64_t&gt;("cols");
+    if (rows == 0 || cols == 0) { return; }
+    Tensor* out_tensor = ctx-&gt;Tensor4ArgNameAndIndex("out", 0);
+    T* out = out_tensor-&gt;mut_dptr&lt;T&gt;();
+    Memset&lt;device_type&gt;(
+        ctx-&gt;stream(), out_tensor-&gt;mut_dptr&lt;T&gt;(), 0,
+        out_tensor-&gt;shape().elem_cnt() * GetSizeOfDataType(out_tensor-&gt;data_type()));
+    EyeFunctor&lt;device_type, T&gt;()(ctx-&gt;stream(), cols, std::min(cols, rows), out);
+  }</code></p>
 <p>OneFlow 针对不同的设备做了特化，把那些无法统一的代码都放到了特化的模版里。</p>
 <p>比如 CPU 版本的 <code>EyeFunctor</code>，直接调用了 <code>SetOneInDiag</code> 函数，其实现在 <a href="https://github.com/Oneflow-Inc/oneflow/blob/master/oneflow/user/kernels/eye_kernel_util.cpp">eye_kernel_util.cpp</a>。</p>
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">EyeFunctor</span><span class="o">&lt;</span><span class="n">DeviceType</span><span class="o">::</span><span class="n">kCPU</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="n">ep</span><span class="o">::</span><span class="n">Stream</span><span class="o">*</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">SetOneInDiag</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-</code></pre></div>
+<p><code>c++
+template&lt;typename T&gt;
+struct EyeFunctor&lt;DeviceType::kCPU, T&gt; final {
+  void operator()(ep::Stream* stream, const int64_t&amp; cols, const int64_t&amp; rows, T* out) {
+    SetOneInDiag(cols, rows, out);
+  }
+};</code></p>
 <p>而 GPU 版本的 <code>EyeFunctor</code>，要实现 <code>global</code> 函数，并启动 <code>kernel</code>，其实现在 <a href="https://github.com/Oneflow-Inc/oneflow/blob/master/oneflow/user/kernels/eye_kernel_util.cu">eye_kernel_util.cu</a>。</p>
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="n">__global__</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">EyeForwardGpuKernel</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="n">SetOneInDiag</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">EyeFunctor</span><span class="o">&lt;</span><span class="n">DeviceType</span><span class="o">::</span><span class="n">kCUDA</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()(</span><span class="n">ep</span><span class="o">::</span><span class="n">Stream</span><span class="o">*</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int64_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">RUN_CUDA_KERNEL</span><span class="p">((</span><span class="n">EyeForwardGpuKernel</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">),</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-</code></pre></div>
+<p>```c++
+template<typename T>
+<strong>global</strong> void EyeForwardGpuKernel(const int64_t cols, const int64_t rows, T* out) {
+  SetOneInDiag(cols, rows, out);
+}</p>
+<p>template<typename T>
+struct EyeFunctor<DeviceType::kCUDA, T> final {
+  void operator()(ep::Stream* stream, const int64_t&amp; cols, const int64_t&amp; rows, T* out) {
+    RUN_CUDA_KERNEL((EyeForwardGpuKernel<T>), stream, rows, cols, rows, out);
+  }
+};
+```</p>
 <p>OneFlow 这种风格代码更精炼，冗余度也更低，但是对 C++ 的要求也更高。</p>
                 
               

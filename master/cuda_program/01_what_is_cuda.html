@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -806,6 +822,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -863,7 +921,7 @@
                 
                 
                 <h1 id="cuda">CUDA 是什么<a class="headerlink" href="#cuda" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1Mb4y1p7BG?share_source=copy_web">CUDA编程01：GPU发家史-从游戏到CUDA</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1Mb4y1p7BG?share_source=copy_web">CUDA编程01：GPU发家史-从游戏到CUDA</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p>新手入门 CUDA 必备知识：</p>
 <ul>
 <li>
@@ -929,27 +987,28 @@
 <li>并行编程</li>
 </ul>
 <p>例如两个长度为 N 的向量相加：</p>
-<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">VectorAdd</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
-<span class="w">        </span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<p>```C++
+void VectorAdd(int n,float *x,float *y)
+{
+    for(int i=0;i&lt;n;i++){
+        y[i] = x[i] +y[i];
+    }
+}</p>
+<p>int main(int argc, char* argv[])
+{
+    int N = 1&lt;&lt;24; //16,777,216
+    float *x = nullptr;
+    float *y = nullptr;</p>
+<div class="codehilite"><pre><span></span><code>//Allocate Unified Memory - accessible from CPU or GPU
+x = (float*)malloc(N*sizeof(float));
+y = (float*)malloc(N*sizeof(float));
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">argv</span><span class="p">[])</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">24</span><span class="p">;</span><span class="w"> </span><span class="c1">//16,777,216</span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
-
-<span class="w">    </span><span class="c1">//Allocate Unified Memory - accessible from CPU or GPU</span>
-<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
-<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">VectorAdd</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+VectorAdd(N,x,y);
+return 0;
 </code></pre></div>
+
+<p>}
+```</p>
 <p>对于串行编程，需要循环 N 次，将这两个向量的元素逐一加和；而 CUDA 可以开 N 个线程，同时处理 N 个元素，也就是并行编程。</p>
 <ul>
 <li>异构编程</li>
@@ -994,6 +1053,21 @@
           </div>
         </a>
       
+      
+        
+        <a href="../cpython/CPython1.html" class="md-footer__link md-footer__link--next" aria-label="下一页: 认识 CPython 源码结构并且编程" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              认识 CPython 源码结构并且编程
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   

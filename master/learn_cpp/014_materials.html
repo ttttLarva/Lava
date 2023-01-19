@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -834,6 +850,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -919,7 +977,7 @@
                 
                 
                 <h1 id="_1">模板元编程推荐资料<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1Lg41197MN?spm_id_from=333.999.0.0&amp;vd_source=c64a1b3ef62311672865e1655c1eddeb">C++新标准014_模板元编程资料</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1Lg41197MN?spm_id_from=333.999.0.0&amp;vd_source=c64a1b3ef62311672865e1655c1eddeb">C++新标准014_模板元编程资料</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p>为了更好地入门或提升模板元编程能力，我们整理了 3 个视频，2 本书籍，共五个资料推荐给大家。</p>
 <h2 id="1-cppcon-2020-template-metaprogramming">1. <strong>视频传送门：</strong> <a href="https://www.youtube.com/watch?v=tiAVWcjIF6o">CPPCON 2020: Template MetaProgramming</a><a class="headerlink" href="#1-cppcon-2020-template-metaprogramming" title="Permanent link">&para;</a></h2>
 <p><img alt="01video.png" src="014_materials_files/01video.png" /></p>
@@ -928,14 +986,16 @@
 <p>该视频还介绍了模板元编程中的约定、规范，然后选择了常用典型的 type traits 做了分析，期间还谈到了各种具体又有深度的概念，比如 void constant
 、SFINA 等等。</p>
 <p>并且这个视频做了一个很好的分流：</p>
-<div class="highlight"><pre><span></span><code>    <span class="k">if</span> <span class="n">你看完这个视频觉得非常受用</span><span class="p">:</span>
+<p>```python
+    if 你看完这个视频觉得非常受用:</p>
+<div class="codehilite"><pre><span></span><code>    说明你对模板元编程的概念已经掌握的不错了，下一步可以实战操练，比如看看 OneFlow 源码;
 
-        <span class="n">说明你对模板元编程的概念已经掌握的不错了</span><span class="err">，</span><span class="n">下一步可以实战操练</span><span class="err">，</span><span class="n">比如看看</span> <span class="n">OneFlow</span> <span class="n">源码</span><span class="p">;</span>
+else if 你看完视频还是很懵:
 
-    <span class="k">else</span> <span class="k">if</span> <span class="n">你看完视频还是很懵</span><span class="p">:</span>
-
-        <span class="n">那么你需要增强一下基础知识</span><span class="err">，</span><span class="n">继续看下面的两个视频</span><span class="p">;</span>
+    那么你需要增强一下基础知识，继续看下面的两个视频;
 </code></pre></div>
+
+<p>```</p>
 <p>CPP Conference 有一个 Back to Basics 专题，由一些技术大牛讲解一些看似常见普通但却非常重要的概念，
 推荐对模板编程不熟悉的同学看以下两个视频。</p>
 <h2 id="2-cppcon-2019-function-and-class-templates">2. <strong>视频传送门：</strong> <a href="https://www.youtube.com/watch?v=LMP_sxOaz6g">CPPCON 2019: Function and Class Templates</a><a class="headerlink" href="#2-cppcon-2019-function-and-class-templates" title="Permanent link">&para;</a></h2>

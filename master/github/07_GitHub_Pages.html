@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -806,6 +822,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -863,7 +921,7 @@
                 
                 
                 <h1 id="github-pages"><a href="https://pages.github.com/">GitHub Pages</a> 的生成和使用<a class="headerlink" href="#github-pages" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1rq4y1y7zi?p=2">GitHub Pages 的生成和使用</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1rq4y1y7zi?p=2">GitHub Pages 的生成和使用</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p>看了前面 MkDocs 的介绍，我们可以使用 MkDocs 工具生成整个网站的 HTML 文件，我们把它上传到云服务器上，那就可以当作自己的博客了。但是这样做费时费力，有没有简单方便，最好还是免费的方法呢？答案是有的，这里我们就给大家介绍一下 <a href="https://pages.github.com/">GitHub Pages</a> 的生成和使用。</p>
 <h2 id="github-pages_1">什么是 GitHub Pages ？<a class="headerlink" href="#github-pages_1" title="Permanent link">&para;</a></h2>
 <p>GitHub Pages 是 GitHub 所提供的一项功能，它的作用就是使 GitHub 中的每一个仓库都有与之对应的网站。它的实现方式也非常简单，只需要简单的两步：</p>
@@ -874,23 +932,18 @@
 <p>最后通过这个 URL：<code>&lt;账号&gt;github.io/&lt;仓库名&gt;</code> 就可以访问了。这些听起来可能有一些抽象，我们一起操作一遍大家可以明白啦。</p>
 <h2 id="github-pages-myblog">在 GitHub Pages 中发布 myblog<a class="headerlink" href="#github-pages-myblog" title="Permanent link">&para;</a></h2>
 <p>首先，我们需要创建一个远程的 GitHub 仓库，并将并且将刚刚的 myblog 推送到了这个仓库：</p>
-<div class="highlight"><pre><span></span><code>git push -u origin main
-</code></pre></div>
+<p><code>git push -u origin main</code></p>
 <p>接下来，我们创建一个 gh-pages 分支，并且切换到这个分支上：</p>
-<div class="highlight"><pre><span></span><code>git checkout -b gh-pages
-</code></pre></div>
+<p><code>git checkout -b gh-pages</code></p>
 <p>然后使用 <code>mkdocs build</code> 命令编译得到 HTML 文件：</p>
-<div class="highlight"><pre><span></span><code>mkdocs build
-</code></pre></div>
+<p><code>mkdocs build</code></p>
 <p>然后我们删掉 site 这个静态网站之外的其它文件，并将 site 文件中的目录都移动到根目录，最后删除 site 文件夹：</p>
-<div class="highlight"><pre><span></span><code>rm -rf docs/ mkdocs.yml
+<p><code>rm -rf docs/ mkdocs.yml
 cp -R site/* ./
-rm -rf site/
-</code></pre></div>
+rm -rf site/</code></p>
 <p>我们将刚刚的改动进行 commit  和 push：</p>
-<div class="highlight"><pre><span></span><code>git commit -a -m &quot;gh-pages start&quot;
-git push origin gh-pages
-</code></pre></div>
+<p><code>git commit -a -m "gh-pages start"
+git push origin gh-pages</code></p>
 <p><img src="image/push_gh_pages.png" alt="push_gh_pages" style="zoom:50%;" /></p>
 <p>接下来，我们找到远程仓库的 Settings 一栏，再找到 Pages 这一栏，就会发现有个漂亮的绿色在提示我们，我们的网站已经被发布到这个链接中了。</p>
 <p><img src="image/github_pages.png" alt="github_pages" style="zoom:50%;" /></p>

@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -813,6 +829,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -877,7 +935,7 @@
                 
                 
                 <h1 id="vs-code-remote-ssh">VS Code 插件 Remote SSH<a class="headerlink" href="#vs-code-remote-ssh" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1YT4y1d78B?spm_id_from=333.999.0.0">远程开发C++001_Remote SSH</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1YT4y1d78B?spm_id_from=333.999.0.0">远程开发C++001_Remote SSH</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p>在学习过如何使用 SSH 登录 GitHub 后 <a href="../github/03_SSH_for_github.html">GitHub SSH 免密码登录</a>，我们对 SSH 已经有了基础的了解，比如像腾讯云和阿里云这样租用的服务器，我们都是可以通过 SSH 去登录。</p>
 <p>远程开发 C++ 这一系列内容将向大家展示如何通过 SSH 登录一个服务器。</p>
 <p>首先，这期主要向大家介绍一款非常好用的 VS Code 插件: <strong>Remote SSH</strong> ，它可以让我们在远程服务器开发像在本地开发一样简单。</p>
@@ -894,20 +952,20 @@
 <p>点击它，然后选择 Open Configuration File：</p>
 <p><img alt="Open SSH Configuration File" src="remote_ssh_files/Xnip2022-05-08_22-55-15.jpg" /></p>
 <p>打开我们配置文件，就是 <code>.ssh/config</code></p>
-<p><div class="highlight"><pre><span></span><code>Host oneflow-15-ttlarva-remote
+<p>``` Text
+Host oneflow-15-ttlarva-remote
     HostName 182.18.94.166
     Port 1615
     User ttlarva
-    IdentityFile E:\oneflow_ssh\id_rsa
-
-Host remote-21-ttlarva
+    IdentityFile E:\oneflow_ssh\id_rsa</p>
+<p>Host remote-21-ttlarva
     HostName 192.168.1.41
     Port 20021
     User ttlarva
     IdentityFile E:\oneflow_ssh\id_rsa
     ProxyCommand C:\Windows\System32\OpenSSH\ssh.exe -q -x -w %h:%p oneflow-15-ttlarva-remote
     StrictHostKeyChecking no
-</code></pre></div>
+```
 这里的 Host 名就是方便我们去记的名，而 HostName 就是 IP 地址，做完一系列配置之后，我们就可以去连接到远程服务器了。</p>
 <p>当安装好这个插件之后，我们还会发现左边多了一个电脑一样的图标：</p>
 <p><img alt="" src="remote_ssh_files/Xnip2022-05-09_00-47-52.jpg" /></p>

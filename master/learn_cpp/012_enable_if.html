@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -656,56 +672,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#is_same" class="md-nav__link">
-    is_same 的使用
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enable_if-is_same_1" class="md-nav__link">
-    enable_if 与 is_same 内部的实现原理
-  </a>
-  
-    <nav class="md-nav" aria-label="enable_if 与 is_same 内部的实现原理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-traits" class="md-nav__link">
-    什么是 type traits ?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enable_if_3" class="md-nav__link">
-    enable_if 源码解析
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#is_same_1" class="md-nav__link">
-    is_same 源码解析
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    总结
-  </a>
   
 </li>
       
@@ -867,6 +835,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -914,56 +924,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#is_same" class="md-nav__link">
-    is_same 的使用
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enable_if-is_same_1" class="md-nav__link">
-    enable_if 与 is_same 内部的实现原理
-  </a>
-  
-    <nav class="md-nav" aria-label="enable_if 与 is_same 内部的实现原理">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#type-traits" class="md-nav__link">
-    什么是 type traits ?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enable_if_3" class="md-nav__link">
-    enable_if 源码解析
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#is_same_1" class="md-nav__link">
-    is_same 源码解析
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    总结
-  </a>
   
 </li>
       
@@ -985,7 +947,7 @@
                 
                 
                 <h1 id="enable_if">新标准：enable_if<a class="headerlink" href="#enable_if" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1Tv4y1N73A?spm_id_from=333.999.0.0&amp;vd_source=0184d13a7c21515c19c1cdb9230751c8">C++新标准012  enable_if</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1Tv4y1N73A?spm_id_from=333.999.0.0&amp;vd_source=0184d13a7c21515c19c1cdb9230751c8">C++新标准012  enable_if</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p><a href="https://www.bilibili.com/video/BV1yr4y1t7qo?spm_id_from=333.999.0.0&amp;vd_source=0184d13a7c21515c19c1cdb9230751c8">上一期视频</a> 我们介绍了 SFINAE 原则，在此基础上，本篇文章将继续介绍了 <code>enable_if</code> 新标准，为后续深入学习模板元编程打下基础。</p>
 <p>本文的结构如下：
 - 为什么要使用 <code>enable_if</code> ？
@@ -993,108 +955,101 @@
 - <code>enable_if</code> 与 <code>is_same</code> 内部的实现原理</p>
 <h2 id="enable_if_1">为什么要使用 enable_if ？<a class="headerlink" href="#enable_if_1" title="Permanent link">&para;</a></h2>
 <p>C++模板函数重载依赖于 SFINAE (substitution-failure-is-not-an-error) 原则，即替换失败不认为是错误，编译器将会继续寻找合适的重载函数；以返回长度的函数为例，该函数针对 STL 中的  <code>vector</code> 容器来实现（容器中有<code>size()</code>成员函数）</p>
-<p><div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CMyclass</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">size_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">decltype</span><span class="p">(</span><span class="n">T</span><span class="p">().</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">size_type</span><span class="p">())</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="c1">//该函数可以避免匹配到 CMyclass 类</span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="kt">unsigned</span><span class="w"> </span><span class="n">len</span><span class="p">(...)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">vec</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">len</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span><span class="w">  </span><span class="c1">//调用针对stl库容器的len函数</span>
-<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">CMyclass</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">//调用len(...)函数</span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-<code>decltype(T().size(), typename T::size_type()) len(T const &amp;t)</code> 该函数声明通过 <code>decltype</code> 类型判别将不包含 <code>size()</code> 成员函数的特例类排除出去，同时逗号表达式返回逗号后面的参数 <code>typename T::size_type()</code> ，实现避免匹配到 <code>CMyclass</code> 类的功能；这种编程技巧晦涩难懂，需要程序员根据特例类不存在的方法制因此造“错误”,并不通用；</p>
+<p>```c++
+class CMyclass
+{
+public:
+    using size_type = unsigned int;
+};</p>
+<p>template <typename T>
+decltype(T().size(), typename T::size_type()) len(T const &amp;t) //该函数可以避免匹配到 CMyclass 类
+{
+    return t.size();
+}
+unsigned len(...)
+{
+    return 0;
+}</p>
+<p>int main()
+{
+    vector<int>vec={1,2,3};
+    cout&lt;&lt;len(vec)&lt;&lt;endl;  //调用针对stl库容器的len函数
+    cout &lt;&lt; len(CMyclass()) &lt;&lt; endl; //调用len(...)函数
+}
+<code>``</code>decltype(T().size(), typename T::size_type()) len(T const &amp;t)<code>该函数声明通过</code>decltype<code>类型判别将不包含</code>size()<code>成员函数的特例类排除出去，同时逗号表达式返回逗号后面的参数</code>typename T::size_type()<code>，实现避免匹配到</code>CMyclass` 类的功能；这种编程技巧晦涩难懂，需要程序员根据特例类不存在的方法制因此造“错误”,并不通用；</p>
 <p>为了实现 SFINAE ，同时降低程序的繁琐度，C++11 采用了具有通用性的 <code>enable_if</code> 新标准代替这种技巧 ；我们使用 <code>enable_if</code> 的形式重写该函数
-<div class="highlight"><pre><span></span><code><span class="c1">// `enable_if`的应用</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">CMyclass</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">size_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="c1">// template &lt;typename T&gt;  </span>
-<span class="c1">// decltype(T().size(), typename T::size_type()) len(T const &amp;t)</span>
-<span class="c1">// {</span>
-<span class="c1">//     return t.size();</span>
-<span class="c1">// }</span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">enable_if</span><span class="o">&lt;!</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">CMyclass</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">//`enable_if`形式</span>
-<span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">size_type</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">unsigned</span><span class="w"> </span><span class="n">len</span><span class="p">(...)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">CMyclass</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-该程序的输出结果与不采用 <code>enable_if</code> 的程序一致，说明采用 <code>enable_if</code> 也可以实现**重载函数避免匹配到特例类**的功能。</p>
+<code>``c++
+//</code>enable_if`的应用
+class CMyclass
+{
+public:
+    using size_type = unsigned int;
+};</p>
+<p>// template <typename T><br />
+// decltype(T().size(), typename T::size_type()) len(T const &amp;t)
+// {
+//     return t.size();
+// }</p>
+<p>template &lt;typename T, typename T2 = typename enable_if&lt;!is_same<T, CMyclass>::value&gt;::type&gt; //<code>enable_if</code>形式
+typename T::size_type len(T const &amp;t)
+{
+    return t.size();
+}</p>
+<p>unsigned len(...)
+{
+    return 0;
+}</p>
+<p>int main()
+{
+    vector<int> vec = {1, 2, 3};
+    cout &lt;&lt; len(vec) &lt;&lt; endl;
+    cout &lt;&lt; len(CMyclass()) &lt;&lt; endl;
+}
+<code>``
+该程序的输出结果与不采用</code>enable_if<code>的程序一致，说明采用</code>enable_if` 也可以实现**重载函数避免匹配到特例类**的功能。</p>
 <p>不同的地方在于，<code>enable_if</code> 可以避免匹配到 <code>CMyclass</code> 这个类，<code>decltype(T().size(), typename T::size_type()) len(T const &amp;t)</code> 是避免匹配到不包含 <code>size()</code> 成员函数的类；
 相比之下 <code>enable_if</code> 更加**灵活**。</p>
 <h2 id="enable_if-is_same">enable_if 与 is_same 的使用<a class="headerlink" href="#enable_if-is_same" title="Permanent link">&para;</a></h2>
 <h3 id="enable_if_2">enable_if 的使用<a class="headerlink" href="#enable_if_2" title="Permanent link">&para;</a></h3>
 <p>首先给出 <code>enable_if</code> 的基本形式
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="w"> </span><span class="n">B</span><span class="p">,</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">=</span><span class="kt">void</span><span class="o">&gt;</span><span class="k">struct</span><span class="w"> </span><span class="nc">enable_if</span><span class="w"></span>
-</code></pre></div>
+<code>c++
+template&lt;bool B,typename T=void&gt;struct enable_if</code>
 - 当传入的模板参数 <code>B</code> 为 <code>True</code> 的时候，<code>enable_if</code> 模板类的 <code>type</code> 就等于 <code>T</code> ；如果不传入模板参数 <code>T</code> ， <code>type</code> 也会默认为 <code>void</code> 
 - 当传入的模板参数 <code>B</code> 为 <code>False</code> 的时候， <code>enable_if</code> 模板类就不再拥有 <code>type</code> 。</p>
 <p>使用 <code>enable_if</code> 时可以让重载函数自由丢弃不需要匹配的特例类；下面给出实际应用的例子</p>
-<p><div class="highlight"><pre><span></span><code><span class="cp">#判断类型字节数是否大于4输出显示</span>
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">typename</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="o">&gt;::</span><span class="n">type</span><span class="w"> </span><span class="n">show</span><span class="p">()</span><span class="w"> </span><span class="c1">//针对 `T` 的长度小于等于4的情况生效</span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;size&lt;=4</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">typename</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="o">&gt;::</span><span class="n">type</span><span class="w"> </span><span class="n">show</span><span class="p">()</span><span class="w">  </span><span class="c1">//针对 `T` 的长度大于4的情况生效</span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;size&gt;4</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">show</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">show</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-输出结果为
-<div class="highlight"><pre><span></span><code><span class="n">size</span><span class="o">&gt;</span><span class="mi">4</span><span class="w"></span>
-<span class="n">size</span><span class="o">&lt;=</span><span class="mi">4</span><span class="w"></span>
-</code></pre></div></p>
+<p>```c++</p>
+<h1 id="4">判断类型字节数是否大于4输出显示<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<p>template <typename T>
+typename std::enable_if&lt;(sizeof(T) &lt;= 4)&gt;::type show() //针对 <code>T</code> 的长度小于等于4的情况生效
+{
+    printf("size&lt;=4\n");
+}</p>
+<p>template <typename T>
+typename std::enable_if&lt;(sizeof(T) &gt; 4)&gt;::type show()  //针对 <code>T</code> 的长度大于4的情况生效
+{
+    printf("size&gt;4\n");
+}</p>
+<p>int main()
+{
+    show<double>();
+    show<char>();
+}
+<code>输出结果为</code>c++
+size&gt;4
+size&lt;=4
+```</p>
 <h3 id="is_same">is_same 的使用<a class="headerlink" href="#is_same" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="k">class</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="k">struct</span><span class="w"> </span><span class="nc">is_same</span><span class="w"></span>
-</code></pre></div>
+<p><code>c++
+template&lt;class T,class U&gt;struct is_same</code>
 - 当模板参数 <code>T</code> 等于模板参数 <code>U</code> 时, <code>is_same&lt;T,U&gt;</code>模板类的成员 <code>value</code> 等于 <code>True</code>
 - 当模板参数 <code>T</code> 不等于模板 <code>U</code> 时, <code>is_same&lt;T,U&gt;</code>模板类的成员 <code>value</code> 等于 <code>False</code></p>
 <p><code>is_same</code> 经常与 <code>eanble_if</code> 搭配使用
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">enable_if</span><span class="o">&lt;!</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">CMyclass</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">//`enable_if`形式</span>
-<span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">size_type</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
+<code>c++
+template &lt;typename T, typename T2 = typename enable_if&lt;!is_same&lt;T, CMyclass&gt;::value&gt;::type&gt; //`enable_if`形式
+typename T::size_type len(T const &amp;t)
+{
+    return t.size();
+}</code>
 <code>enable_if</code> 模板类的第一个参数经常用 <code>is_same</code> 的 <code>value</code> 来代替，结合起来对一些特例进行判断，实现 SFINAE</p>
 <h2 id="enable_if-is_same_1">enable_if 与 is_same 内部的实现原理<a class="headerlink" href="#enable_if-is_same_1" title="Permanent link">&para;</a></h2>
 <p>了解这两个模板类的内部实现原理之前，需要了解 type traits 的概念</p>
@@ -1103,34 +1058,34 @@
  把功能相同而参数不同的函数抽象出来，通过 traits 将不同的参数的相同属性提取出来，在函数中利用这些用 traits 提取的属性，使得**函数对不同的参数表现一致**。</p>
 <h3 id="enable_if_3">enable_if 源码解析<a class="headerlink" href="#enable_if_3" title="Permanent link">&para;</a></h3>
 <p>下面给出 <code>enable_if</code> 的源码
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">_Tp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">enable_if</span><span class="w"></span>
-<span class="p">{</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">_Tp</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">enable_if</span><span class="o">&lt;</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="n">_Tp</span><span class="o">&gt;</span><span class="w"></span>
-<span class="p">{</span><span class="w"> </span>
-<span class="w">     </span><span class="k">typedef</span><span class="w"> </span><span class="n">_Tp</span><span class="w"> </span><span class="n">type</span><span class="p">;</span><span class="w"> </span>
-<span class="p">};</span><span class="w"></span>
-</code></pre></div>
+```c++
+template<bool, typename _Tp = void>
+struct enable_if
+{ };</p>
+<p>template<typename _Tp>
+struct enable_if<true, _Tp>
+{ 
+     typedef _Tp type; 
+};
+<code>``
 - 首先定义了一个空的通用模板，不包含任何成员
-- 当第一个模板参数值为 <code>True</code> 时，将模板特例化; <code>type</code> 的类型为第二个模板参数 <code>_Tp</code> 。</p>
+- 当第一个模板参数值为</code>True<code>时，将模板特例化;</code>type<code>的类型为第二个模板参数</code>_Tp` 。</p>
 <h3 id="is_same_1">is_same 源码解析<a class="headerlink" href="#is_same_1" title="Permanent link">&para;</a></h3>
 <p>以下代码简单实现了 <code>is_same</code> 模板类的作用
-<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">my_is_same</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="o">=</span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">my_is_same</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">value</span><span class="o">=</span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-</code></pre></div>
-- 定义一个通用模板，针对两个模板参数类型不一致的情况，默认 <code>value</code> 值为 <code>False</code> 。
-- 模板特例化，针对两个模板参数类型一致的情况，将 <code>value</code> 值设置为 <code>True</code> 。</p>
+```c++
+template <typename T,typename U>
+struct my_is_same
+{
+    static constexpr bool value=false;
+}</p>
+<p>template <typename T>
+struct my_is_same
+{
+    static constexpr bool value=true;
+};
+<code>``
+- 定义一个通用模板，针对两个模板参数类型不一致的情况，默认</code>value<code>值为</code>False<code>。
+- 模板特例化，针对两个模板参数类型一致的情况，将</code>value<code>值设置为</code>True` 。</p>
 <p><code>is_same</code> 和 <code>enable_if</code> 的基本实现方案可以总结为：<strong>通用模板加模板实例化</strong>。</p>
 <h2 id="_1">总结<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>

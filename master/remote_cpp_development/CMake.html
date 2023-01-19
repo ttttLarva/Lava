@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -840,6 +856,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -931,7 +989,7 @@
                 
                 
                 <h1 id="c-cmake">编译 C++ 项目必备 CMake<a class="headerlink" href="#c-cmake" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1Zq4y13777?spm_id_from=333.999.0.0">远程开发 C++ 003_CMake</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1Zq4y13777?spm_id_from=333.999.0.0">远程开发 C++ 003_CMake</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p>本篇文章将和大家聊一聊编译 C++ 项目的必备工具 CMake。现在几乎所有的大型的开源的 C++ 项目，都会使用 CMake 来做构建系统。 </p>
 <p>比如编译基础设置 <a href="https://github.com/llvm/llvm-project">LLVM</a>，高性能异步 IO 库 <a href="https://github.com/libuv/libuv">libuv</a>，<a href="https://github.com/boostorg/boost">boost 库</a>，当然还有分布式深度学习框架 <a href="https://github.com/Oneflow-Inc/oneflow">OneFlow</a>。</p>
 <h3 id="cmake">CMake 项目特点<a class="headerlink" href="#cmake" title="Permanent link">&para;</a></h3>
@@ -949,10 +1007,10 @@
 <p><img alt="CMake" src="CMake_pics/Xnip2022-05-12_00-03-45.jpg" /></p>
 <h2 id="cmake_2">CMake 示例<a class="headerlink" href="#cmake_2" title="Permanent link">&para;</a></h2>
 <p>这里是一个简单的 CMake 的例子：</p>
-<div class="highlight"><pre><span></span><code>cmake_minimum_required(VERSIOIN 3.14)  #设置CMake最小版本 
+<p><code>Text
+cmake_minimum_required(VERSIOIN 3.14)  #设置CMake最小版本 
 project (cmake_example)  #设置工程名
-add_executable(cmake_example main.cop ui.cpp logic.cpp)  #生成可执行文件
-</code></pre></div>
+add_executable(cmake_example main.cop ui.cpp logic.cpp)  #生成可执行文件</code></p>
 <p>这个 CMakeLists 是项目设置的一个配置文件，第一行是设置 CMake 的最小版本，第二行是设置工程名，大家根据自己的喜好设置就行，第三行是生成的可执行文件名，后面的是依赖的 cpp 名。</p>
 <p>接下来文章将向大家展示在 Linux 和 Windows 系统下使用 CMake 来生成不同的工程。</p>
 <h3 id="linux-cmake">Linux 下使用 CMake<a class="headerlink" href="#linux-cmake" title="Permanent link">&para;</a></h3>

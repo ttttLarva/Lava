@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -833,6 +849,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -917,7 +975,7 @@
                 
                 
                 <h1 id="git-merge-conflicts">解决 Git 冲突：Merge Conflicts<a class="headerlink" href="#git-merge-conflicts" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1aF411s7Ti?spm_id_from=333.999.0.0">解决 Git 冲突：Merge Conflicts</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong> <a href="https://www.bilibili.com/video/BV1aF411s7Ti?spm_id_from=333.999.0.0">解决 Git 冲突：Merge Conflicts</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <p>这篇文章是 GitHub 专题，参与过开源项目的同学或早或晚都会遇到 Git 冲突的问题。</p>
 <p>本篇文章想让大家知其然知其所以然，结构如下：</p>
 <ul>
@@ -942,15 +1000,30 @@
 <h2 id="_3">如何解决冲突<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>冲突产生了，那么就必须通过人为解决才能合并入分支。实际上，Git 检测和标记冲突的方式是非常朴素且直接的，其实就是纯文本格式。</p>
 <p>用 notepad++ 打开刚刚修改过的 README 文件。可以发现 Git 检测出了发生冲突的地方，并且用大于，等于，小于符号作为分隔符都标记了出来，这一切它都是一种纯文本的格式。</p>
-<div class="highlight"><pre><span></span><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+<p>```Text
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 LiBai 是一个基于 Oneflow 的大型规模模型训练开源工具箱，主分支代码目前支持 OneFlow 0.A.0 以上的版本。
 =======
-LiBai 是一个基于 Oneflow 的大型规模模型训练开源工具箱，主分支代码目前支持 OneFlow 0.B.0 以上的版本。
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch_b
-</code></pre></div>
+LiBai 是一个基于 Oneflow 的大型规模模型训练开源工具箱，主分支代码目前支持 OneFlow 0.B.0 以上的版本。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>branch_b
+```</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>大多数情况下，可能都是需要对这两个内容进行一个二选一的操作，即保留必要的内容，删除不必要的内容，还包括这里的标记符号。假设要保留 A 的修改，那就需要删掉 B 的内容和删掉分隔符。</p>
-<div class="highlight"><pre><span></span><code>LiBai 是一个基于 Oneflow 的大型规模模型训练开源工具箱，主分支代码目前支持 OneFlow 0.A.0 以上的版本。
-</code></pre></div>
+<p><code>Text
+LiBai 是一个基于 Oneflow 的大型规模模型训练开源工具箱，主分支代码目前支持 OneFlow 0.A.0 以上的版本。</code></p>
 <p>保存后，再查看一下状态，<code>git status</code>。接着，将刚刚的改动进行一个提交，<code>git add .</code>。</p>
 <p>可以看到，它自动生成了 commit 的信息。</p>
 <p>输入 <code>git commit</code> 就可以提交成功了。</p>

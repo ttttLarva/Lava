@@ -242,6 +242,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cpython/CPython1.html" class="md-tabs__link">
+        CPython 源码解读
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -841,6 +857,48 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        CPython 源码解读
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="CPython 源码解读" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CPython 源码解读
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpython/CPython1.html" class="md-nav__link">
+        认识 CPython 源码结构并且编程
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -933,7 +991,7 @@
                 
                 
                 <h1 id="pr">如何提交 PR<a class="headerlink" href="#pr" title="Permanent link">&para;</a></h1>
-<p><img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1hq4y1P72f?share_source=copy_web">如何提交 PR</a> <img alt="🌏" class="twemoji" src="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg" title=":earth_asia:" /></p>
+<p><img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /> <strong>Bilibili视频传送门：</strong><a href="https://www.bilibili.com/video/BV1hq4y1P72f?share_source=copy_web">如何提交 PR</a> <img alt="🌏" class="twemoji" src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f30f.svg" title=":earth_asia:" /></p>
 <h2 id="pr_1">什么是 PR<a class="headerlink" href="#pr_1" title="Permanent link">&para;</a></h2>
 <p>GitHub 上一般通过提交 PR（Pull Request）的方式，像开源项目合并代码。
 如何还没有参与过开源项目提交过 PR，可以看看本文小糖以 OneFlow（大佬） 为例，如何提交 PR。
@@ -956,22 +1014,18 @@
 <p>首先复制仓库名：在自己账号下的 oneflow 仓库页面获取仓库地址</p>
 <p><img alt="a7021068-64c4-423f-80f0-675c25535a78.png" src="01_how_to_pr1_files/a7021068-64c4-423f-80f0-675c25535a78.png" /></p>
 <p>接着克隆到本地，打开控制台：
-<div class="highlight"><pre><span></span><code>git clone https://github.com/ttttLarva/oneflow.git
-</code></pre></div></p>
+<code>git clone https://github.com/ttttLarva/oneflow.git</code></p>
 <p>以上的 <code>https://github.com/ttttLarva/oneflow.git</code> 是小糖的账号下的地址，记得替换成你自己对应的仓库哦。</p>
 <h2 id="3">3. 创建新分支<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>在最新代码的基础上，通过 <code>git checkout -b</code> 命令，创建新的分支。并在这个新分支上进行修改和 commit 代码。</p>
-<p><div class="highlight"><pre><span></span><code>git checkout -b new_branch
-</code></pre></div>
+<p><code>git checkout -b new_branch</code>
 以上的 <code>new_branch</code> 就是新分支名。该命令会创建 <code>new_branch</code> 分支并切换到这个新分支上。</p>
 <p>修改文件并提交代码</p>
-<div class="highlight"><pre><span></span><code>git add .
-git commit 
-</code></pre></div>
+<p><code>git add .
+git commit</code></p>
 <h2 id="4-github">4. 推送到github<a class="headerlink" href="#4-github" title="Permanent link">&para;</a></h2>
 <p>提交到本地仓库成功之后，我们就要将改动提交到远程仓库啦，使用命令：</p>
-<div class="highlight"><pre><span></span><code>git push origin new_branch
-</code></pre></div>
+<p><code>git push origin new_branch</code></p>
 <p>其实 origin 就是远程仓库地址（<code>https://github.com/ttttLarva/oneflow.git</code>）的别名，<code>new_branch</code> 是远程仓库分支名，强烈建议与本地分支名保持一致。</p>
 <h2 id="5-pr">5. 创建 PR<a class="headerlink" href="#5-pr" title="Permanent link">&para;</a></h2>
 <p>在第一次 push 到远程仓库成功后，控制台会出现一个链接，我们把这个链接复制到浏览器打开，就可以跳转到创建PR的界面：
